@@ -1,0 +1,27 @@
+type Token @entity {
+  id: ID!
+  tokenID: BigInt!
+  tokenURI: String!
+  ipfsURI: TokenMetadata
+  updatedAtTimestamp: BigInt
+  owner: User!
+}
+
+type TokenMetadata @entity {
+  id: ID!
+  image: String
+  externalURL: String
+  name: String
+  description: String
+  upperLeft: String
+  upperRight: String
+  lowerLeft: String
+  lowerRight: String
+  randomWord: String
+  randomNumber: BigInt
+}
+
+type User @entity {
+  id: ID!
+  tokens: [Token!]! @derivedFrom(field: "owner")
+}

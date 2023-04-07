@@ -1,0 +1,41 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: CeloBox
+    network: celo-alfajores
+    source:
+      address: "0x2916FcCCd2B4382acF09A80E35DeF0e1e21162C4"
+      abi: CeloBox
+      startBlock: 16966307
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - NFTMint
+        - OwnershipTransferred
+        - Transfer
+      abis:
+        - name: CeloBox
+          file: ./abis/CeloBox.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/celo-box.ts
+templates:
+  - name: TokenMetadata
+    kind: file/ipfs
+    mapping:
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/celo-box.ts
+      handler: handleMetadata
+      entities:
+        - TokenMetadata
+      abis:
+        - name: CeloBox
+          file: ./abis/CeloBox.json

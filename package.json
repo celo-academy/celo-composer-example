@@ -1,0 +1,37 @@
+{
+    "name": "dapp-demo",
+    "version": "1.0.0",
+    "description": "Custom Celo Composer project.",
+    "private": true,
+    "author": "Celo",
+    "license": "MIT",
+    "scripts": {
+        "react-app:dev": "yarn workspace @dapp-demo/react-app dev",
+        "react-app:build": "yarn workspace @dapp-demo/react-app build",
+        "react-app:start": "yarn workspace @dapp-demo/react-app start",
+        "react-app:lint": "yarn workspace @dapp-demo/react-app lint",
+        "hardhat:test": "yarn workspace @dapp-demo/hardhat test",
+        "hardhat:test-local": "yarn workspace @dapp-demo/hardhat test-local",
+        "hardhat:accounts": "yarn workspace @dapp-demo/hardhat accounts",
+        "hardhat:devchain": "yarn workspace @dapp-demo/hardhat devchain",
+        "hardhat:deploy": "yarn workspace @dapp-demo/hardhat deploy",
+        "hardhat:deploy-reset-watch": "yarn workspace @dapp-demo/hardhat deploy-reset-watch",
+        "hardhat:watch": "yarn workspace @dapp-demo/hardhat watch",
+        "hardhat:fork-mainnet": "yarn workspace @dapp-demo/hardhat fork-mainnet"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/celo-examples/dapp-demo.git"
+    },
+    "bugs": {
+        "url": "https://github.com/celo-examples/dapp-demo/issues"
+    },
+    "homepage": "https://github.com/celo-examples/dapp-demo/blob/main/README.md",
+    "workspaces": [
+        "packages/*"
+    ],
+    "keywords": [
+        "celo-composer",
+        "celo"
+    ]
+}

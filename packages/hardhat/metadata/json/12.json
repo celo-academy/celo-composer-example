@@ -1,0 +1,35 @@
+{
+  "name": "Celo Box #12",
+  "description": "A random background box with Celo brand colors.",
+  "image": "https://gateway.pinata.cloud/ipfs/QmTbF8SYF8iAnixVhHrHfgCZp75LQubWdDTXW6P7N2xsSK/12.jpg",
+  "background_color": "476520",
+  "animation_url": "",
+  "external_url": "",
+  "attributes": [
+    {
+        "trait_type": "upper_left", 
+        "value": "citrus"
+    },
+    {
+        "trait_type": "upper_right", 
+        "value": "danger"
+    },
+    {
+      "trait_type": "lower_left", 
+      "value": "disabled"
+    },
+    {
+      "trait_type": "lower_right", 
+      "value": "snow"
+    },
+    {
+      "trait_type": "random_word", 
+      "value": "mustard"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "random_number", 
+      "value": 18
+    }
+  ]
+}

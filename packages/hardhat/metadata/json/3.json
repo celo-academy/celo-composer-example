@@ -1,0 +1,35 @@
+{
+  "name": "Celo Box #3",
+  "description": "A random background box with Celo brand colors.",
+  "image": "https://gateway.pinata.cloud/ipfs/QmTbF8SYF8iAnixVhHrHfgCZp75LQubWdDTXW6P7N2xsSK/3.jpg",
+  "background_color": "476520",
+  "animation_url": "",
+  "external_url": "",
+  "attributes": [
+    {
+        "trait_type": "upper_left", 
+        "value": "onyx"
+    },
+    {
+        "trait_type": "upper_right", 
+        "value": "gypsum"
+    },
+    {
+      "trait_type": "lower_left", 
+      "value": "lavender"
+    },
+    {
+      "trait_type": "lower_right", 
+      "value": "jade"
+    },
+    {
+      "trait_type": "random_word", 
+      "value": "mellow"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "random_number", 
+      "value": 83
+    }
+  ]
+}
