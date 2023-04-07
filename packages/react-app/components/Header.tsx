@@ -45,29 +45,31 @@ export default function Header() {
                                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                                     <a
                                         href="/"
-                                        className="inline-flex items-center border-b-2 border-black px-1 pt-1 text-sm font-medium text-gray-900"
+                                        className={`inline-flex items-center ${
+                                            pathname === "/"
+                                                ? "border-b-2 border-black"
+                                                : ""
+                                        } px-1 pt-1 text-sm font-medium text-gray-900`}
                                     >
                                         Home
                                     </a>
                                     <a
                                         href="/storage"
-                                        className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900"
+                                        className={`inline-flex ${
+                                            pathname === "/storage"
+                                                ? "border-b-2 border-black"
+                                                : ""
+                                        } items-center px-1 pt-1 text-sm font-medium text-gray-900`}
                                     >
                                         Storage
                                     </a>
                                     <a
-                                        href="/superfluid"
-                                        className={`inline-flex items-center ${
-                                            pathname === "/superfluid"
+                                        href="/nft"
+                                        className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${
+                                            pathname === "/nft"
                                                 ? "border-b-2 border-black"
                                                 : ""
-                                        } px-1 pt-1 text-sm font-medium text-gray-900`}
-                                    >
-                                        SuperFluid
-                                    </a>
-                                    <a
-                                        href="/nft"
-                                        className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900"
+                                        } text-gray-900`}
                                     >
                                         NFT
                                     </a>
@@ -89,34 +91,35 @@ export default function Header() {
                             <Disclosure.Button
                                 as="a"
                                 href="/"
-                                className="block border-l-4 border-black py-2 pl-3 pr-4 text-base font-medium text-black"
+                                className={`block ${
+                                    pathname === "/"
+                                        ? "border-l-4 border-black"
+                                        : ""
+                                } py-2 pl-3 pr-4 text-base font-medium text-black`}
                             >
                                 Home
                             </Disclosure.Button>
                             <Disclosure.Button
                                 as="a"
                                 href="/storage"
-                                className="block py-2 pl-3 pr-4 text-base font-medium text-black"
+                                className={`block py-2 pl-3 pr-4 text-base font-medium text-black ${
+                                    pathname === "/storage"
+                                        ? "border-l-4 border-black"
+                                        : ""
+                                }`}
                             >
                                 Storage
                             </Disclosure.Button>
                             <Disclosure.Button
                                 as="a"
                                 href="/nft"
-                                className="block py-2 pl-3 pr-4 text-base font-medium text-black"
-                            >
-                                NFT
-                            </Disclosure.Button>
-                            <Disclosure.Button
-                                as="a"
-                                href="/nft"
                                 className={`block py-2 pl-3 pr-4 text-base font-medium text-black ${
-                                    pathname === "/superfluid"
+                                    pathname === "/nft"
                                         ? "border-l-4 border-black"
                                         : ""
                                 }`}
                             >
-                                SuperFluid
+                                NFT
                             </Disclosure.Button>
                         </div>
                     </Disclosure.Panel>
