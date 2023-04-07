@@ -1,6 +1,11 @@
+import Button from "@/components/Button";
+import InputField from "@/components/InputField";
+import Jazzicon from "@/components/Jazzicon";
 import { ResolveMasa } from "@/masa-resolver";
+import { NameResolutionResults } from "@/types";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useEffect, useState } from "react";
-import { useAccount, useNetwork } from "wagmi";
+import { Address, useAccount, useNetwork } from "wagmi";
 
 const NETWORKS: Record<string, any> = {
     alfajores: {
@@ -13,43 +18,93 @@ const NETWORKS: Record<string, any> = {
 
 export default function Masa() {
     const { isConnected } = useAccount();
+    const [resolving, setResolving] = useState(false);
+    const [resolvedAddress, setResolvedAddress] = useState<Address | null>(
+        null
+    );
     const [isWalletConneted, setWalletConnected] = useState(false);
-    const { chain, chains } = useNetwork();
+    const { chain } = useNetwork();
+    const [value, setValue] = useState<string | null>(null);
     const [masaResolver, setMasaResolver] = useState<ResolveMasa | undefined>(
         undefined
     );
     useEffect(() => {
-        let resolver = new ResolveMasa({
-            providerUrl: NETWORKS[chain?.name as string],
-            networkName: chain?.name as string,
-        });
-        setMasaResolver(resolver);
-    }, []);
+        if (chain) {
+            let resolver = new ResolveMasa({
+                providerUrl:
+                    NETWORKS[chain?.name.toLowerCase() as string].providerUrl,
+                networkName: chain?.name.toLowerCase() as string,
+            });
+            setMasaResolver(resolver);
+        }
+    }, [isWalletConneted]);
 
     useEffect(() => {
         setWalletConnected(isConnected);
     }, [isConnected]);
 
+    async function masaResolve() {
+        if (value) {
+            setResolving(true);
+            const { resolutions, errors } = (await masaResolver?.resolve(
+                value
+            )) as NameResolutionResults;
+            if (errors.length) {
+                setResolvedAddress(null);
+                console.log("Something went Wrong");
+            } else {
+                if (resolutions.length) {
+                    setResolvedAddress(resolutions[0].address);
+                } else {
+                    console.log("No Resolutions");
+                    setResolvedAddress(null);
+                }
+            }
+        }
+        setResolving(false);
+    }
+
+    function handleInput({ target }: any) {
+        setValue(target.value);
+    }
+
     return (
-        <div className="m-auto flex flex-col">
+        <div className="w-[600px] m-auto flex flex-col space-y-4">
             {isWalletConneted ? (
                 <>
                     <InputField
                         className="no-spinner"
-                        label="Enter a Number"
+                        label="Enter a .celo name"
                         value={value ?? ""}
-                        onChange={({ target }) => {
-                            return target.value == ""
-                                ? setValue(null)
-                                : setValue(Number(target.value));
-                        }}
-                        type="number"
+                        onChange={handleInput}
+                        type="text"
                     />
+                    {resolvedAddress ? (
+                        <div className="flex space-x-4 items-center">
+                            <h1>Resolved Address: </h1>
+                            <a
+                                href={`https://${
+                                    chain?.name.toLowerCase() == "alfajores"
+                                        ? "alfajores."
+                                        : ""
+                                }celoscan.io/address/${resolvedAddress}`}
+                                target="_blank"
+                            >
+                                <div className="flex space-x-2 items-center underline">
+                                    <Jazzicon
+                                        diameter={10}
+                                        address={resolvedAddress}
+                                    />
+                                    <h1>{resolvedAddress}</h1>
+                                </div>
+                            </a>
+                        </div>
+                    ) : null}
                     <Button
                         text="Submit"
-                        isLoading={isLoading}
+                        isLoading={resolving}
                         disabled={value == null}
-                        onClick={write ?? (() => {})}
+                        onClick={masaResolve ?? (() => {})}
                     />
                 </>
             ) : (

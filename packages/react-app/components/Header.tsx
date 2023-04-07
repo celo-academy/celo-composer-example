@@ -64,6 +64,16 @@ export default function Header() {
                                         Storage
                                     </a>
                                     <a
+                                        href="/masa"
+                                        className={`inline-flex ${
+                                            pathname === "/masa"
+                                                ? "border-b-2 border-black"
+                                                : ""
+                                        } items-center px-1 pt-1 text-sm font-medium text-gray-900`}
+                                    >
+                                        Masa
+                                    </a>
+                                    <a
                                         href="/nft"
                                         className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${
                                             pathname === "/nft"
@@ -109,6 +119,17 @@ export default function Header() {
                                 }`}
                             >
                                 Storage
+                            </Disclosure.Button>
+                            <Disclosure.Button
+                                as="a"
+                                href="/storage"
+                                className={`block py-2 pl-3 pr-4 text-base font-medium text-black ${
+                                    pathname === "/masa"
+                                        ? "border-l-4 border-black"
+                                        : ""
+                                }`}
+                            >
+                                Masa
                             </Disclosure.Button>
                             <Disclosure.Button
                                 as="a"
