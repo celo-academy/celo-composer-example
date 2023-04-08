@@ -5,6 +5,7 @@ import { ResolveMasa } from "@/masa-resolver";
 import { NameResolutionResults } from "@/types";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { Address, useAccount, useNetwork } from "wagmi";
 
 const NETWORKS: Record<string, any> = {
@@ -16,7 +17,7 @@ const NETWORKS: Record<string, any> = {
     },
 };
 
-export default function Masa() {
+export default function MasaResolver() {
     const { isConnected } = useAccount();
     const [resolving, setResolving] = useState(false);
     const [resolvedAddress, setResolvedAddress] = useState<Address | null>(
@@ -51,13 +52,13 @@ export default function Masa() {
             )) as NameResolutionResults;
             if (errors.length) {
                 setResolvedAddress(null);
-                console.log("Something went Wrong");
+                toast.error("Something went wrong!");
             } else {
                 if (resolutions.length) {
                     setResolvedAddress(resolutions[0].address);
                 } else {
-                    console.log("No Resolutions");
                     setResolvedAddress(null);
+                    toast.error("No Resolutions Found!");
                 }
             }
         }

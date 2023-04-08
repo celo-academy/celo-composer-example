@@ -22,6 +22,7 @@ import { Alfajores, Celo } from "@celo/rainbowkit-celo/chains";
 import Layout from "../components/Layout";
 
 import { createClient as createClientUrql, cacheExchange, fetchExchange, Provider } from "urql";
+import { Toaster } from "react-hot-toast";
 
 const { chains, provider } = configureChains(
   [Alfajores, Celo],
@@ -62,6 +63,7 @@ function App({ Component, pageProps }: AppProps) {
         <Provider value={client}>
           <Layout>
             <Component {...pageProps} />
+            <Toaster position="bottom-center" />
           </Layout>
         </Provider>
       </RainbowKitProvider>

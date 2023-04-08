@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes } from "react";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 type Props = {
     text: string;
@@ -33,7 +33,6 @@ const Button: React.FC<Props> = ({
                 if (!isLoading) {
                     onClick();
                 } else {
-                    toast.dismiss();
                     toast.error("It's loading, please wait...");
                 }
             }}
