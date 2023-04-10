@@ -3,9 +3,11 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useNetwork } from "wagmi";
 
 export default function Header() {
     const router = useRouter();
+    const { chain } = useNetwork();
     const { pathname } = router;
     return (
         <Disclosure as="nav" className="bg-prosperity border-b border-black">
@@ -73,6 +75,18 @@ export default function Header() {
                                     >
                                         Masa
                                     </a>
+                                    {chain?.name === "Celo" ? (
+                                        <a
+                                            href="/spirals"
+                                            className={`inline-flex ${
+                                                pathname === "/spirals"
+                                                    ? "border-b-2 border-black"
+                                                    : ""
+                                            } items-center px-1 pt-1 text-sm font-medium text-gray-900`}
+                                        >
+                                            Spirals
+                                        </a>
+                                    ) : null}
                                     <a
                                         href="/nft"
                                         className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${
@@ -131,6 +145,19 @@ export default function Header() {
                             >
                                 Masa
                             </Disclosure.Button>
+                            {chain?.name === "Celo" ? (
+                                <Disclosure.Button
+                                    as="a"
+                                    href="/spirals"
+                                    className={`block py-2 pl-3 pr-4 text-base font-medium text-black ${
+                                        pathname === "/spirals"
+                                            ? "border-l-4 border-black"
+                                            : ""
+                                    }`}
+                                >
+                                    Spirals
+                                </Disclosure.Button>
+                            ) : null}
                             <Disclosure.Button
                                 as="a"
                                 href="/nft"
