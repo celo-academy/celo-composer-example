@@ -46,7 +46,7 @@ module.exports = {
         },
     },
     solidity: {
-        version: "0.8.17",
+        version: "0.8.19",
     },
     namedAccounts: {
         deployer: 0,
