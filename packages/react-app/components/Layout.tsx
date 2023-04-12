@@ -3,20 +3,20 @@ import Footer from "./Footer";
 import Header from "./Header";
 
 interface Props {
-    children: ReactNode
+    children: ReactNode;
 }
-const Layout: FC<Props> = ({children}) => {
+const Layout: FC<Props> = ({ children }) => {
     return (
         <>
             <div className="bg-gypsum overflow-hidden flex flex-col min-h-screen">
-            <Header />
+                <Header />
                 <div className="py-16 space-y-8 sm:px-6 lg:px-8">
                     {children}
                 </div>
-            <Footer />
+                <Footer />
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Layout;
