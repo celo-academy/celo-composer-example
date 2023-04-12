@@ -12,7 +12,7 @@ const NETWORKS: Record<string, any> = {
     alfajores: {
         providerUrl: "https://alfajores-forno.celo-testnet.org",
     },
-    mainnet: {
+    celo: {
         providerUrl: "https://forno.celo.org",
     },
 };
@@ -38,7 +38,7 @@ export default function MasaResolver() {
             });
             setMasaResolver(resolver);
         }
-    }, [isWalletConneted]);
+    }, [chain]);
 
     useEffect(() => {
         setWalletConnected(isConnected);
@@ -51,6 +51,7 @@ export default function MasaResolver() {
                 value
             )) as NameResolutionResults;
             if (errors.length) {
+                console.log(errors);
                 setResolvedAddress(null);
                 toast.error("Something went wrong!");
             } else {

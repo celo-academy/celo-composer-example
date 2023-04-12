@@ -22,7 +22,7 @@ export class ResolveMasa implements NameResolver {
                   wallet: new providers.JsonRpcProvider(
                       providerUrl
                   ).getSigner(),
-                  networkName: networkName === "mainnet" ? "celo" : "alfajores",
+                  networkName: networkName === "celo" ? "celo" : "alfajores",
               });
     }
 
