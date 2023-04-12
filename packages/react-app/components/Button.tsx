@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes } from "react";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 type Props = {
     text: string;
