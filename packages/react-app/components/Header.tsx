@@ -3,11 +3,23 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useNetwork } from "wagmi";
+import { useEffect, useState } from "react";
+import { getNetwork, watchNetwork } from "wagmi/actions";
 
 export default function Header() {
+    const [currentChain, setCurrentChain] = useState<{
+        name: string | undefined;
+    } | null>(null);
     const router = useRouter();
-    const { chain } = useNetwork();
+
+    useEffect(() => {
+        const unwatch = watchNetwork((network) => {
+            setCurrentChain({ name: network.chain?.name });
+        });
+
+        return unwatch;
+    }, []);
+
     const { pathname } = router;
     return (
         <Disclosure as="nav" className="bg-prosperity border-b border-black">
@@ -75,7 +87,7 @@ export default function Header() {
                                     >
                                         Masa
                                     </a>
-                                    {chain?.name === "Celo" ? (
+                                    {currentChain?.name === "Celo" ? (
                                         <a
                                             href="/spirals"
                                             className={`inline-flex ${
@@ -145,7 +157,7 @@ export default function Header() {
                             >
                                 Masa
                             </Disclosure.Button>
-                            {chain?.name === "Celo" ? (
+                            {currentChain?.name === "Celo" ? (
                                 <Disclosure.Button
                                     as="a"
                                     href="/spirals"

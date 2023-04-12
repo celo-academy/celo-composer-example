@@ -8,6 +8,7 @@ type Props = {
     icon?: React.ReactNode;
     isLoading?: boolean;
     disabled: boolean;
+    className: string;
 };
 
 const Button: React.FC<Props> = ({
@@ -17,6 +18,7 @@ const Button: React.FC<Props> = ({
     icon,
     isLoading = false,
     disabled,
+    className,
 }) => {
     const getBgColor = () => {
         switch (varient) {
@@ -37,7 +39,7 @@ const Button: React.FC<Props> = ({
                 }
             }}
             disabled={disabled}
-            className="pushable select-none rounded-sm bg-black border-none p-0 cursor-pointer outline-offset-4"
+            className={`pushable select-none rounded-sm bg-black border-none p-0 cursor-pointer outline-offset-4 ${className}`}
         >
             <span
                 className={`front rounded-sm border-2 border-black text-black font-bold text-base block py-2 px-6 ${getBgColor()}`}
