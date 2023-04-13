@@ -31,6 +31,7 @@ export default function MasaResolver() {
     );
     useEffect(() => {
         if (chain) {
+            // When chain changes, Masa Resolver is changed to the respective chain resolver.
             let resolver = new ResolveMasa({
                 providerUrl:
                     NETWORKS[chain?.name.toLowerCase() as string].providerUrl,
