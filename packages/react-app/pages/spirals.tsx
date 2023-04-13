@@ -1,9 +1,18 @@
 import { useEffect, useReducer } from "react";
-import { useAccount, useContractReads } from "wagmi";
+import {
+    useAccount,
+    useContractReads,
+    useContractWrite,
+    usePrepareContractWrite,
+} from "wagmi";
 import GreenTokenVaultAbi from "../abis/GreenTokenVault";
 import { utils } from "ethers";
-import { fetchBalance, fetchToken } from "wagmi/actions";
+import { fetchToken, getNetwork } from "wagmi/actions";
 import Button from "@/components/Button";
+import { useRouter } from "next/router";
+import InputField from "@/components/InputField";
+import Deposit from "@/components/Deposit";
+import Withdraw from "@/components/Withdraw";
 
 const GCELO_VAULT_ADDRESS = "0x8A1639098644A229d08F441ea45A63AE050Ee018";
 
@@ -12,6 +21,8 @@ const INITIAL_VALUES = {
     yieldAsset: "",
     asset: "",
     balance: 0,
+    depositValue: 0,
+    receiverAddress: "",
 };
 
 const GCELO_CONTRACT = {
@@ -31,18 +42,27 @@ function reducer(state, action) {
             return { ...state, balance: action.payload };
         case "state":
             return action.payload;
+        case "depositValue":
+            return { ...state, depositValue: action.payload };
+        case "receiverAddress":
+            return { ...state, receiverAddress: action.payload };
         default:
             return state;
     }
 }
 
 export default function Spirals() {
-    const { address, isConnected } = useAccount();
+    const router = useRouter();
+    const { chain, chains } = getNetwork();
+
+    if (chain?.id === 44787) router.replace("/");
+
+    const { address, isConnected, connector } = useAccount();
     const [state, dispatch] = useReducer(reducer, INITIAL_VALUES);
 
-    // useEffect(() => {
-    //     (async () => {})();
-    // }, [state]);
+    useEffect(() => {
+        dispatch({ type: "receiverAddress", payload: address });
+    }, [address]);
 
     useContractReads({
         contracts: [
@@ -62,7 +82,6 @@ export default function Spirals() {
         onSuccess(data) {
             console.log(data);
             dispatch({ payload: data[0], type: "apy" });
-
             (async () => {
                 let asset = await fetchToken({
                     address: data[2],
@@ -134,19 +153,35 @@ export default function Spirals() {
                         </div>
                     )}
                 </div>
-                <div className="flex justify-between space-x-2">
-                    <Button
-                        text="Deposit"
-                        className="w-full"
-                        disabled={false}
-                        onClick={() => console.log("deposit")}
-                    />
-                    <Button
-                        text="Withdraw"
-                        className="w-full"
-                        disabled={false}
-                        onClick={() => console.log("withdraw")}
-                    />
+                <div className="flex justify-between items-start space-x-2">
+                    <div className="flex flex-col w-full space-y-2">
+                        <InputField
+                            label="Receiver Address"
+                            defaultValue={address}
+                        />
+                        <InputField
+                            label="Amount (CELO)"
+                            step="0.01"
+                            type="number"
+                            value={state.depositValue}
+                            onChange={(e) =>
+                                dispatch({
+                                    type: "depositValue",
+                                    payload: e.target.value,
+                                })
+                            }
+                            className="no-spinner"
+                        />
+                        <Deposit
+                            value={state.depositValue}
+                            address={
+                                state.receiverAddress === ""
+                                    ? address
+                                    : state.receiverAddress
+                            }
+                        />
+                    </div>
+                    <Withdraw address={address} />
                 </div>
             </div>
         </div>

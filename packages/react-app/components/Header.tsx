@@ -13,6 +13,10 @@ export default function Header() {
     const router = useRouter();
 
     useEffect(() => {
+        const { chain, chains } = getNetwork();
+
+        setCurrentChain({ name: chain?.name });
+
         const unwatch = watchNetwork((network) => {
             setCurrentChain({ name: network.chain?.name });
         });

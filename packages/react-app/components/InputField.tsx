@@ -7,6 +7,7 @@ function InputField({
     type,
     placeholder,
     className,
+    defaultValue,
 }: InputHTMLAttributes<HTMLInputElement> & { label: string }) {
     return (
         <div className={className}>
@@ -23,6 +24,7 @@ function InputField({
                 placeholder={placeholder ?? ""}
                 required
                 value={value}
+                defaultValue={defaultValue}
                 onChange={onChange}
             />
         </div>
